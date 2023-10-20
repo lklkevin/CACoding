@@ -1,6 +1,7 @@
 package interface_adapter.signup;
 
 import interface_adapter.ViewModel;
+import interface_adapter.clear_users.ClearState;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -18,12 +19,18 @@ public class SignupViewModel extends ViewModel {
 
     private SignupState state = new SignupState();
 
+    private ClearState clearState = new ClearState();
+
     public SignupViewModel() {
         super("sign up");
     }
 
     public void setState(SignupState state) {
         this.state = state;
+    }
+
+    public void setClearState(ClearState state) {
+        this.clearState = state;
     }
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
@@ -34,8 +41,15 @@ public class SignupViewModel extends ViewModel {
         support.firePropertyChange("state", null, this.state);
     }
 
+    public void fireClearPropertyChanged() {
+        support.firePropertyChange("clearState", null, this.clearState);
+    }
+
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
+    }
+    public ClearState getClearState(){
+        return clearState;
     }
 
     public SignupState getState() {
